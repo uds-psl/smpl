@@ -221,12 +221,6 @@ END
 let pr_smpldb _prc _prlc _prt s = str s
 }
 
-ARGUMENT EXTEND smpldb
-  TYPED AS preident
-  PRINTED BY { pr_smpldb }
-| [ preident(i) ] -> { let _ = smpl_db_exists i in i }
-END
-
 {
 let rec is_opt_set opt opts =
   match opts with
@@ -260,5 +254,5 @@ VERNAC COMMAND EXTEND SmplPrintAll CLASSIFIED AS QUERY
 END
 
 TACTIC EXTEND smpl
-   | [ "smpl" smpldb(db) uconstr_list(args) ] -> { smpl_tac db args }
+   | [ "smpl" preident(db) uconstr_list(args) ] -> { smpl_tac db args }
 END
